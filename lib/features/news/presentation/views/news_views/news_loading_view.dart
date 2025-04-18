@@ -5,6 +5,6 @@ class NewsLoadingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: CircularProgressIndicator());
+    return SliverToBoxAdapter( child: Center(child: CircularProgressIndicator()));
   }
 }

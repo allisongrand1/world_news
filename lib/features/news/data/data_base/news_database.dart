@@ -19,7 +19,7 @@ class NewsDataBase extends _$NewsDataBase {
 
   Future<List<NewsTableData>> getNews() => select(newsTable).get();
 
-  Future<List<CommentsTableData>> getCommentsByNews(String id) =>
+  Future<List<CommentsTableData>> getCommentsByNews(int id) =>
       (select(commentsTable)..where((tbl) => tbl.newsId.equals(id))).get();
 
   Future<void> saveNews(List<News> news) async {
@@ -39,6 +39,8 @@ class NewsDataBase extends _$NewsDataBase {
           ),
           mode: InsertMode.insertOrReplace,
         );
+
+        await (delete(commentsTable)..where((t) => t.newsId.equals(article.id))).go();
       }
 
       await batch((batch) {
@@ -61,17 +63,17 @@ class NewsDataBase extends _$NewsDataBase {
   }
 
   Future<void> clearNews() async {
-    delete(newsTable);
-    delete(commentsTable);
+    await delete(newsTable).go();
+    await delete(commentsTable).go();
   }
 
   Future<List<NewsTableData>> findNewsByQuery(String query) async {
-    return await (select(newsTable)..where((tbl) => tbl.title.like('%$query%') | tbl.content.like('%$query%'))).get();
+    return await (select(newsTable)..where((tbl) => tbl.title.like('%$query%'))).get();
   }
 
-  Future<NewsTableData> getNewsById(String id) => (select(newsTable)..where((tbl) => tbl.id.equals(id))).getSingle();
+  Future<NewsTableData> getNewsById(int id) => (select(newsTable)..where((tbl) => tbl.id.equals(id))).getSingle();
 
-  Future<void> addCommentToNews({required String newsId, required String comment, required String name}) {
+  Future<void> addCommentToNews({required int newsId, required String comment, required String name}) {
     return into(commentsTable).insert(
       CommentsTableCompanion(
         newsId: Value(newsId),

@@ -11,11 +11,11 @@ class $NewsTableTable extends NewsTable
   $NewsTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
     'id',
     aliasedName,
     false,
-    type: DriftSqlType.string,
+    type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
@@ -204,14 +204,14 @@ class $NewsTableTable extends NewsTable
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {title};
   @override
   NewsTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return NewsTableData(
       id:
           attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
+            DriftSqlType.int,
             data['${effectivePrefix}id'],
           )!,
       name:
@@ -267,7 +267,7 @@ class $NewsTableTable extends NewsTable
 }
 
 class NewsTableData extends DataClass implements Insertable<NewsTableData> {
-  final String id;
+  final int id;
   final String name;
   final String author;
   final String title;
@@ -290,7 +290,7 @@ class NewsTableData extends DataClass implements Insertable<NewsTableData> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
+    map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
     map['author'] = Variable<String>(author);
     map['title'] = Variable<String>(title);
@@ -322,7 +322,7 @@ class NewsTableData extends DataClass implements Insertable<NewsTableData> {
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return NewsTableData(
-      id: serializer.fromJson<String>(json['id']),
+      id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       author: serializer.fromJson<String>(json['author']),
       title: serializer.fromJson<String>(json['title']),
@@ -337,7 +337,7 @@ class NewsTableData extends DataClass implements Insertable<NewsTableData> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
+      'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
       'author': serializer.toJson<String>(author),
       'title': serializer.toJson<String>(title),
@@ -350,7 +350,7 @@ class NewsTableData extends DataClass implements Insertable<NewsTableData> {
   }
 
   NewsTableData copyWith({
-    String? id,
+    int? id,
     String? name,
     String? author,
     String? title,
@@ -431,7 +431,7 @@ class NewsTableData extends DataClass implements Insertable<NewsTableData> {
 }
 
 class NewsTableCompanion extends UpdateCompanion<NewsTableData> {
-  final Value<String> id;
+  final Value<int> id;
   final Value<String> name;
   final Value<String> author;
   final Value<String> title;
@@ -454,7 +454,7 @@ class NewsTableCompanion extends UpdateCompanion<NewsTableData> {
     this.rowid = const Value.absent(),
   });
   NewsTableCompanion.insert({
-    required String id,
+    required int id,
     required String name,
     required String author,
     required String title,
@@ -474,7 +474,7 @@ class NewsTableCompanion extends UpdateCompanion<NewsTableData> {
        publishedAt = Value(publishedAt),
        content = Value(content);
   static Insertable<NewsTableData> custom({
-    Expression<String>? id,
+    Expression<int>? id,
     Expression<String>? name,
     Expression<String>? author,
     Expression<String>? title,
@@ -500,7 +500,7 @@ class NewsTableCompanion extends UpdateCompanion<NewsTableData> {
   }
 
   NewsTableCompanion copyWith({
-    Value<String>? id,
+    Value<int>? id,
     Value<String>? name,
     Value<String>? author,
     Value<String>? title,
@@ -529,7 +529,7 @@ class NewsTableCompanion extends UpdateCompanion<NewsTableData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<String>(id.value);
+      map['id'] = Variable<int>(id.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
@@ -600,11 +600,11 @@ class $CommentsTableTable extends CommentsTable
   );
   static const VerificationMeta _newsIdMeta = const VerificationMeta('newsId');
   @override
-  late final GeneratedColumn<String> newsId = GeneratedColumn<String>(
+  late final GeneratedColumn<int> newsId = GeneratedColumn<int>(
     'news_id',
     aliasedName,
     false,
-    type: DriftSqlType.string,
+    type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
@@ -703,7 +703,7 @@ class $CommentsTableTable extends CommentsTable
           )!,
       newsId:
           attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
+            DriftSqlType.int,
             data['${effectivePrefix}news_id'],
           )!,
       name:
@@ -733,7 +733,7 @@ class $CommentsTableTable extends CommentsTable
 class CommentsTableData extends DataClass
     implements Insertable<CommentsTableData> {
   final int id;
-  final String newsId;
+  final int newsId;
   final String name;
   final String comment;
   final DateTime createdAt;
@@ -748,7 +748,7 @@ class CommentsTableData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['news_id'] = Variable<String>(newsId);
+    map['news_id'] = Variable<int>(newsId);
     map['name'] = Variable<String>(name);
     map['comment'] = Variable<String>(comment);
     map['created_at'] = Variable<DateTime>(createdAt);
@@ -772,7 +772,7 @@ class CommentsTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CommentsTableData(
       id: serializer.fromJson<int>(json['id']),
-      newsId: serializer.fromJson<String>(json['newsId']),
+      newsId: serializer.fromJson<int>(json['newsId']),
       name: serializer.fromJson<String>(json['name']),
       comment: serializer.fromJson<String>(json['comment']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -783,7 +783,7 @@ class CommentsTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'newsId': serializer.toJson<String>(newsId),
+      'newsId': serializer.toJson<int>(newsId),
       'name': serializer.toJson<String>(name),
       'comment': serializer.toJson<String>(comment),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -792,7 +792,7 @@ class CommentsTableData extends DataClass
 
   CommentsTableData copyWith({
     int? id,
-    String? newsId,
+    int? newsId,
     String? name,
     String? comment,
     DateTime? createdAt,
@@ -840,7 +840,7 @@ class CommentsTableData extends DataClass
 
 class CommentsTableCompanion extends UpdateCompanion<CommentsTableData> {
   final Value<int> id;
-  final Value<String> newsId;
+  final Value<int> newsId;
   final Value<String> name;
   final Value<String> comment;
   final Value<DateTime> createdAt;
@@ -853,7 +853,7 @@ class CommentsTableCompanion extends UpdateCompanion<CommentsTableData> {
   });
   CommentsTableCompanion.insert({
     this.id = const Value.absent(),
-    required String newsId,
+    required int newsId,
     required String name,
     required String comment,
     required DateTime createdAt,
@@ -863,7 +863,7 @@ class CommentsTableCompanion extends UpdateCompanion<CommentsTableData> {
        createdAt = Value(createdAt);
   static Insertable<CommentsTableData> custom({
     Expression<int>? id,
-    Expression<String>? newsId,
+    Expression<int>? newsId,
     Expression<String>? name,
     Expression<String>? comment,
     Expression<DateTime>? createdAt,
@@ -879,7 +879,7 @@ class CommentsTableCompanion extends UpdateCompanion<CommentsTableData> {
 
   CommentsTableCompanion copyWith({
     Value<int>? id,
-    Value<String>? newsId,
+    Value<int>? newsId,
     Value<String>? name,
     Value<String>? comment,
     Value<DateTime>? createdAt,
@@ -900,7 +900,7 @@ class CommentsTableCompanion extends UpdateCompanion<CommentsTableData> {
       map['id'] = Variable<int>(id.value);
     }
     if (newsId.present) {
-      map['news_id'] = Variable<String>(newsId.value);
+      map['news_id'] = Variable<int>(newsId.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
@@ -944,7 +944,7 @@ abstract class _$NewsDataBase extends GeneratedDatabase {
 
 typedef $$NewsTableTableCreateCompanionBuilder =
     NewsTableCompanion Function({
-      required String id,
+      required int id,
       required String name,
       required String author,
       required String title,
@@ -957,7 +957,7 @@ typedef $$NewsTableTableCreateCompanionBuilder =
     });
 typedef $$NewsTableTableUpdateCompanionBuilder =
     NewsTableCompanion Function({
-      Value<String> id,
+      Value<int> id,
       Value<String> name,
       Value<String> author,
       Value<String> title,
@@ -978,7 +978,7 @@ class $$NewsTableTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
+  ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnFilters(column),
   );
@@ -1033,7 +1033,7 @@ class $$NewsTableTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
+  ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnOrderings(column),
   );
@@ -1088,7 +1088,7 @@ class $$NewsTableTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<String> get id =>
+  GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<String> get name =>
@@ -1153,7 +1153,7 @@ class $$NewsTableTableTableManager
               () => $$NewsTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
-                Value<String> id = const Value.absent(),
+                Value<int> id = const Value.absent(),
                 Value<String> name = const Value.absent(),
                 Value<String> author = const Value.absent(),
                 Value<String> title = const Value.absent(),
@@ -1177,7 +1177,7 @@ class $$NewsTableTableTableManager
               ),
           createCompanionCallback:
               ({
-                required String id,
+                required int id,
                 required String name,
                 required String author,
                 required String title,
@@ -1234,7 +1234,7 @@ typedef $$NewsTableTableProcessedTableManager =
 typedef $$CommentsTableTableCreateCompanionBuilder =
     CommentsTableCompanion Function({
       Value<int> id,
-      required String newsId,
+      required int newsId,
       required String name,
       required String comment,
       required DateTime createdAt,
@@ -1242,7 +1242,7 @@ typedef $$CommentsTableTableCreateCompanionBuilder =
 typedef $$CommentsTableTableUpdateCompanionBuilder =
     CommentsTableCompanion Function({
       Value<int> id,
-      Value<String> newsId,
+      Value<int> newsId,
       Value<String> name,
       Value<String> comment,
       Value<DateTime> createdAt,
@@ -1262,7 +1262,7 @@ class $$CommentsTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get newsId => $composableBuilder(
+  ColumnFilters<int> get newsId => $composableBuilder(
     column: $table.newsId,
     builder: (column) => ColumnFilters(column),
   );
@@ -1297,7 +1297,7 @@ class $$CommentsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get newsId => $composableBuilder(
+  ColumnOrderings<int> get newsId => $composableBuilder(
     column: $table.newsId,
     builder: (column) => ColumnOrderings(column),
   );
@@ -1330,7 +1330,7 @@ class $$CommentsTableTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get newsId =>
+  GeneratedColumn<int> get newsId =>
       $composableBuilder(column: $table.newsId, builder: (column) => column);
 
   GeneratedColumn<String> get name =>
@@ -1383,7 +1383,7 @@ class $$CommentsTableTableTableManager
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<String> newsId = const Value.absent(),
+                Value<int> newsId = const Value.absent(),
                 Value<String> name = const Value.absent(),
                 Value<String> comment = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
@@ -1397,7 +1397,7 @@ class $$CommentsTableTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                required String newsId,
+                required int newsId,
                 required String name,
                 required String comment,
                 required DateTime createdAt,

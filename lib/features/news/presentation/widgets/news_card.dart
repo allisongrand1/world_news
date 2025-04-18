@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:world_news/core/router/routes.dart';
 import 'package:world_news/features/news/presentation/widgets/image_news.dart';
 
 class NewsCard extends StatelessWidget {
-  final String id;
+  final int id;
   final String title;
   final String description;
   final String urlToImage;
+  final int lengthComments;
+  final DateTime publishedAt;
 
   const NewsCard({
     super.key,
@@ -15,6 +18,8 @@ class NewsCard extends StatelessWidget {
     required this.description,
     required this.urlToImage,
     required this.id,
+    required this.lengthComments,
+    required this.publishedAt,
   });
 
   @override
@@ -22,29 +27,58 @@ class NewsCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return InkWell(
-      onTap: () {
-        context.goNamed(AppRoutes.detailNews.name, queryParameters: {'id': id});
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 4, top: 4),
-        child: Card(
+      onTap: () => context.pushNamed(AppRoutes.detailNews.name, pathParameters: {'id': id.toString()}),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ImageNews(urlToImage: urlToImage),
-              Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                child: Text(title, style: textTheme.titleMedium),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(title, style: textTheme.titleMedium, maxLines: 2, overflow: TextOverflow.ellipsis),
+                        const SizedBox(height: 8),
+                        Text(description, style: textTheme.bodySmall, maxLines: 2, overflow: TextOverflow.ellipsis),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [SizedBox(width: 100, height: 80, child: ImageNews(urlToImage: urlToImage))],
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 16, left: 16, right: 16),
-                child: Text(
-                  description,
-                  style: textTheme.bodySmall,
-                  textAlign: TextAlign.justify,
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                ),
+              const SizedBox(height: 8),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(DateFormat('MMM d, y').format(publishedAt), style: textTheme.labelMedium),
+                  InkWell(
+                    onTap:
+                        () => context.pushNamed(
+                          AppRoutes.detailNews.name,
+                          pathParameters: {'id': id.toString()},
+                          extra: true,
+                        ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.mode_comment_rounded, size: 14),
+                        const SizedBox(width: 4),
+                        Text('$lengthComments', style: textTheme.labelMedium),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -2,10 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:world_news/features/auth/data/models/profile.dart';
 
 class AuthNotifier extends ChangeNotifier {
-  bool _isAuthenticated = false;
+  bool? _isAuthenticated;
   Profile _profile = Profile.empty();
 
-  bool get isAuthenticated => _isAuthenticated;
+  bool get isAuthenticated => _isAuthenticated == true;
+
+  bool get isAuthLoading => _isAuthenticated == null;
 
   Profile get profile => _profile;
 

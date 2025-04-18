@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:world_news/application.dart';
 import 'package:world_news/core/common/infrastructure.dart';
 import 'package:world_news/core/di/di.dart';
@@ -11,10 +12,14 @@ void main() {
   final exceptionObserver = ExceptionObserver();
 
   runZonedGuarded(() {
-    final infrastructure = Infrastructure.base();
+    WidgetsFlutterBinding.ensureInitialized();
 
-    final di = DI.base(infrastructure);
+    Future.sync(() async {
+      final prefs = await SharedPreferences.getInstance();
+      final infrastructure = await Infrastructure.base(prefs);
+      final di = DI.base(infrastructure);
 
-    runApp(ProviderWrapper(di: di, child: Application()));
+      runApp(ProviderWrapper(di: di, child: Application(infrastructure)));
+    });
   }, exceptionObserver.onException);
 }

@@ -2,10 +2,10 @@ import 'package:world_news/core/di/providers/notifier_providers.dart';
 import 'package:world_news/core/di/providers/repository_providers.dart';
 import 'package:world_news/features/auth/domain/use_cases/get_profile_use_case.dart';
 import 'package:world_news/features/auth/domain/use_cases/login_use_case.dart';
+import 'package:world_news/features/auth/domain/use_cases/logout_use_case.dart';
 import 'package:world_news/features/news/domain/use_cases/comment_news_use_case.dart';
 import 'package:world_news/features/news/domain/use_cases/get_detail_news_use_case.dart';
 import 'package:world_news/features/news/domain/use_cases/get_news_use_case.dart';
-import 'package:world_news/features/news/domain/use_cases/logout_use_case.dart';
 import 'package:world_news/features/news/domain/use_cases/search_news_use_case.dart';
 
 class UseCaseProviders {

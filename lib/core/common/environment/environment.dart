@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:dio/dio.dart';
 import 'package:world_news/core/common/environment/environment_interface.dart';
 

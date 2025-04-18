@@ -6,6 +6,6 @@ class NewsErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text(error));
+    return SliverToBoxAdapter( child: Center(child: Text(error)));
   }
 }

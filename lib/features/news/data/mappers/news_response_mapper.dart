@@ -4,14 +4,14 @@ import 'package:world_news/features/news/domain/models/news.dart';
 
 extension NewsResponseMapper on NewsResponse {
   List<News> toDomain() {
-    return articles.map((news) => news.toDomain()).toList();
+    return articles.map((news) => news.toDomain(articles.indexOf(news))).toList();
   }
 }
 
 extension NewsArticleMapper on NewsArticle {
-  News toDomain() {
+  News toDomain(int id) {
     return News(
-      id: source.id,
+      id: id,
       author: author,
       name: source.name,
       title: title,

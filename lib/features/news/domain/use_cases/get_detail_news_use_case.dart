@@ -6,7 +6,7 @@ class GetDetailNewsUseCase {
 
   GetDetailNewsUseCase({required this.newsRepository});
 
-  Future<News> call(String id) async {
+  Future<News> call(int id) async {
     return await newsRepository.getNewsById(id);
   }
 }

@@ -43,15 +43,22 @@ class _AuthFormState extends State<AuthForm> with AuthTextFieldMixin {
         key: _formKey,
         child: Column(
           children: [
-            AuthTextField(
-              controller: loginController,
-              labelText: 'Login',
-              validator: validatorController.validateLogin,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: AuthTextField(
+                controller: loginController,
+                labelText: 'Login',
+                validator: validatorController.validateLogin,
+              ),
             ),
-            AuthTextField(
-              controller: passwordController,
-              labelText: 'Password',
-              validator: validatorController.validatePassword,
+
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: AuthTextField(
+                controller: passwordController,
+                labelText: 'Password',
+                validator: validatorController.validatePassword,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:world_news/features/auth/domain/use_cases/logout_use_case.dart';
 import 'package:world_news/features/news/domain/use_cases/get_news_use_case.dart';
-import 'package:world_news/features/news/domain/use_cases/logout_use_case.dart';
 import 'package:world_news/features/news/domain/use_cases/search_news_use_case.dart';
 import 'package:world_news/features/news/presentation/blocs/news_bloc/news_events.dart';
 import 'package:world_news/features/news/presentation/blocs/news_bloc/news_states.dart';

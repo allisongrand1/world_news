@@ -1,8 +1,12 @@
+import 'package:world_news/features/news/domain/models/comment.dart';
 import 'package:world_news/features/news/domain/models/news.dart';
 
 abstract class NewsRepository {
   Future<List<News>> getNews();
-  Future<News> getNewsById(String id);
+
+  Future<News> getNewsById(int id);
+
   Future<List<News>> searchByQuery(String query);
-  Future<void> addCommentToNews({required String newsId, required String comment, required String name});
+
+  Future<List<Comment>> addCommentToNews({required int newsId, required String comment, required String name});
 }

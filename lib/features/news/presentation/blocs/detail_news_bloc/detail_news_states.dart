@@ -1,29 +1,29 @@
+import 'package:world_news/features/news/domain/models/comment.dart';
 import 'package:world_news/features/news/domain/models/news.dart';
 
 sealed class DetailNewsStates {
-  static DetailNewsStates init() => InitDetailNewsState();
+  final News detailNews;
+  final List<Comment> comments;
 
-  static DetailNewsStates loading() => LoadingDetailNewsState();
-
-  static DetailNewsStates loaded(News detailNews) => LoadedDetailNewsState(detailNews);
-
-  static DetailNewsStates error(String error) => ErrorDetailNewsState(error);
+  DetailNewsStates({required this.detailNews, required this.comments});
 }
 
-class InitDetailNewsState extends DetailNewsStates {}
+class InitDetailNewsState extends DetailNewsStates {
+  InitDetailNewsState({required super.detailNews, required super.comments});
+}
 
-class LoadingDetailNewsState extends DetailNewsStates {}
+class LoadingDetailNewsState extends DetailNewsStates {
+  LoadingDetailNewsState({required super.detailNews, required super.comments});
+}
 
 class LoadedDetailNewsState extends DetailNewsStates {
-  final News detailNews;
-
-  LoadedDetailNewsState(this.detailNews);
+  LoadedDetailNewsState({required super.detailNews, required super.comments});
 }
 
 class ErrorDetailNewsState extends DetailNewsStates {
   final String error;
 
-  ErrorDetailNewsState(this.error);
+  ErrorDetailNewsState(this.error, {required super.detailNews, required super.comments});
 }
 
 extension DetailNewsStatesExtension<T> on DetailNewsStates {

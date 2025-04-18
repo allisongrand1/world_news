@@ -9,38 +9,18 @@ class NewsSuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Search',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-              ),
-              onChanged: (value) {},
-            ),
-          ),
-          SliverList.builder(
-            itemCount: news.length,
-            itemBuilder: (BuildContext context, int index) {
-              return NewsCard(
-                id: news[index].id,
-                title: news[index].title,
-                description: news[index].description,
-                urlToImage: news[index].urlToImage,
-              );
-            },
-          ),
-        ],
-      ),
+    return SliverList.builder(
+      itemCount: news.length,
+      itemBuilder: (BuildContext context, int index) {
+        return NewsCard(
+          id: news[index].id,
+          title: news[index].title,
+          description: news[index].description,
+          urlToImage: news[index].urlToImage,
+          lengthComments: news[index].comments.length,
+          publishedAt: news[index].publishedAt,
+        );
+      },
     );
   }
 }

@@ -7,19 +7,18 @@ class ImageNews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      width: double.infinity,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-        child: Image.network(
-          urlToImage,
-          fit: BoxFit.cover,
-          loadingBuilder: (context, child, event) {
-            if (event == null) return child;
-            return Center(child: CircularProgressIndicator());
-          },
-        ),
+    final screenWidth = MediaQuery.of(context).size.width;
+    if (urlToImage.isEmpty) {
+      return Icon(Icons.image_not_supported);
+    }
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.network(
+        urlToImage,
+        width: screenWidth * 0.25,
+        height: screenWidth * 0.18,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported),
       ),
     );
   }

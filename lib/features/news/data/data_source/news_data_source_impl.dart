@@ -19,8 +19,8 @@ class NewsDataSourceImpl extends NewsDataSource {
 
     try {
       final response = await dio.get(everything, queryParameters: query);
-
-      return NewsResponse.fromJson(response.data).articles.map((news) => news.toDomain()).toList();
+      final articles = NewsResponse.fromJson(response.data).articles;
+      return articles.map((news) => news.toDomain(articles.indexOf(news))).toList();
     } on DioException catch (e) {
       throw handleException(e);
     }

@@ -11,7 +11,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
   name: json['name'] as String,
   comment: json['comment'] as String,
   createdAt: DateTime.parse(json['createdAt'] as String),
-  newsId: json['newsId'] as String,
+  newsId: (json['newsId'] as num).toInt(),
 );
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{

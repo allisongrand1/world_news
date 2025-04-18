@@ -1,18 +1,18 @@
 sealed class DetailNewsEvents {
-  static DetailNewsEvents getDetailInfo(String id) => DetailNewsEvent(id: id);
+  static DetailNewsEvents getDetailInfo(int id) => DetailNewsEvent(id: id);
 
-  static DetailNewsEvents comment({required String id, required String comment}) =>
+  static DetailNewsEvents comment({required int id, required String comment}) =>
       CommentNewsEvent(id: id, comment: comment);
 }
 
 class DetailNewsEvent extends DetailNewsEvents {
-  final String id;
+  final int id;
 
   DetailNewsEvent({required this.id});
 }
 
 class CommentNewsEvent extends DetailNewsEvents {
-  final String id;
+  final int id;
   final String comment;
 
   CommentNewsEvent({required this.id, required this.comment});

@@ -5,7 +5,7 @@ part 'news.g.dart';
 
 @j.JsonSerializable()
 class News {
-  final String id;
+  final int id;
   final String name;
   final String author;
   final String title;
@@ -30,14 +30,25 @@ class News {
   });
 
   factory News.fromJson(Map<String, dynamic> json) {
-    print(json);
     return _$NewsFromJson(json);
   }
 
   Map<String, dynamic> toJson() => _$NewsToJson(this);
 
+  News.empty()
+    : id = 1,
+      name = '',
+      author = '',
+      title = '',
+      description = '',
+      url = '',
+      urlToImage = '',
+      publishedAt = DateTime.now(),
+      content = '',
+      comments = [];
+
   News copyWith(
-    String? id,
+    int? id,
     String? name,
     String? author,
     String? title,
